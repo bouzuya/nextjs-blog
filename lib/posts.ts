@@ -2,11 +2,12 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import remark from "remark";
+// @ts-expect-error
 import html from "remark-html";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
-export function getAllPostIds() {
+export function getAllPostIds(): Array<any> {
   const fileNames = fs.readdirSync(postsDirectory);
 
   return fileNames.map((fileName) => {
@@ -18,7 +19,7 @@ export function getAllPostIds() {
   });
 }
 
-export async function getPostData(id) {
+export async function getPostData(id: string): Promise<any> {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const matterResult = matter(fileContents);
@@ -35,10 +36,10 @@ export async function getPostData(id) {
   };
 }
 
-export function getSortedPostsData() {
+export function getSortedPostsData(): Array<any> {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
+  const allPostsData = fileNames.map((fileName): any => {
     // Remove ".md" from file name to get id
     const id = fileName.replace(/\.md$/, "");
 
